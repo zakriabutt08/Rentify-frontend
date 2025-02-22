@@ -1,0 +1,87 @@
+import React from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { useGetSingleProperty } from "../react-query/queries/property.queries";
+import PropertyDetailCard from "../components/cards/PropertyDetailCard";
+import { useAuth } from "../hooks/useAuth";
+import { useGetCustomer } from "../react-query/queries/customer.queries";
+import { GoogleMap, MarkerF } from "@react-google-maps/api";
+
+const mapContainerStyle = {
+  width: "100%",
+  height: "400px",
+};
+
+const PropertyDetail = () => {
+  const { id } = useParams();
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
+  const { isPending, data: property } = useGetSingleProperty(id);
+  const {
+    data: customerData,
+    isPending: isGetCustomerLoading,
+    error: isGetCustomerError,
+  } = useGetCustomer();
+
+  const handleRequestAgreement = () => {
+    if (!user) navigate("/users/login");
+    else if (
+      !isGetCustomerLoading &&
+      !isGetCustomerError &&
+      customerData?.customer
+    ) {
+      navigate(
+        `/user/agreements/create?property_id=${id}&customer_id=${customerData.customer.id}`
+      );
+    } else navigate(`/user/customers/create?property_id=${id}`);
+  };
+
+  if (isPending) {
+    return <h1>Loading...</h1>;
+  }
+
+  // Ensure latitude and longitude are valid numbers
+  const lat = property?.latitude ? parseFloat(property.latitude) : null;
+  const lng = property?.longitude ? parseFloat(property.longitude) : null;
+  const isValidLocation = !isNaN(lat) && !isNaN(lng);
+
+
+  return (
+    <div className="pt-20 container mx-auto">
+      <div className="flex justify-between mb-4">
+        <button
+          onClick={() => navigate(-1)}
+          className="mb-4 px-4 py-2 bg-slate-500 text-white rounded-lg"
+        >
+          &lt;&ensp;Back
+        </button>
+
+        {user && user.is_admin ? null : (
+          <button
+            onClick={handleRequestAgreement}
+            className="mb-4 px-4 py-2 bg-blue-500 text-white rounded-lg"
+          >
+            Request {property.rent_or_buy} agreement&ensp;&gt;
+          </button>
+        )}
+      </div>
+
+      <PropertyDetailCard property={property} />
+      <br />
+      <br />
+
+       {/* Google Maps Section */}
+       {isValidLocation ? (
+        <GoogleMap mapContainerStyle={mapContainerStyle} center={{ lat, lng }} zoom={15}>
+          <MarkerF position={{ lat, lng }} />
+        </GoogleMap>
+      ) : (
+        <p className="text-red-500 text-center mt-4">Location not available for this property.</p>
+      )}
+
+      <br />
+    </div>
+  );
+};
+
+export default PropertyDetail;
