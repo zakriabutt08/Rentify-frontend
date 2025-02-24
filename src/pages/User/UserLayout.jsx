@@ -27,37 +27,49 @@ const UserLayout = ({ children }) => {
   }
 
   return (
-    <div className="min-h-screen flex bg-gray-50">
+    <div className="min-h-screen flex bg-gradient-to-br from-gray-50 to-gray-100">
       {/* Sidebar */}
-      <div className="w-72 min-w-72 bg-white shadow-lg p-6 space-y-4">
-        <h2 className="text-2xl font-semibold text-gray-800 mb-6">
-          {user.is_admin ? "Admin" : "Customer"} Dashboard
+      <aside className="w-72 min-w-72 bg-white shadow-2xl p-6 flex flex-col transition-all duration-300 ease-in-out">
+        {/* Header */}
+        <h2 className="text-2xl font-bold text-gray-900 mb-8 tracking-tight">
+          {user.is_admin ? "Admin Panel" : "My Dashboard"}
         </h2>
-        {/* Navigation Tabs */}
-        <div className="space-y-3">
-          {sideNavLinks.map((linkProps, i) => (
-            <Link
-              key={i}
-              to={linkProps.to}
-              className={`flex items-center space-x-4 px-5 py-3 rounded-lg transition-all duration-200 ease-in-out ${
-                location.pathname.includes(linkProps.children.split(" ").join("-").toLowerCase())
-                  ? "bg-blue-600 text-white"
-                  : "bg-gray-200 text-gray-700 hover:bg-blue-500 hover:text-white"
-              }`}
-            >
-              <span className="text-xl">{linkProps.icon}</span>
-              <span className="text-lg">{linkProps.children}</span>
-            </Link>
-          ))}
+        {/* Navigation */}
+        <nav className="flex-1 space-y-2">
+          {sideNavLinks.map((linkProps, i) => {
+            const isActive = location.pathname.includes(
+              linkProps.children.split(" ").join("-").toLowerCase()
+            );
+            return (
+              <Link
+                key={i}
+                to={linkProps.to}
+                className={`flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200 ease-in-out transform hover:scale-105 ${
+                  isActive
+                    ? "bg-gradient-to-r from-indigo-600 to-blue-500 text-white shadow-lg"
+                    : "text-gray-600 hover:bg-indigo-50 hover:text-indigo-700"
+                }`}
+              >
+                <span className={`text-lg ${isActive ? "text-white" : "text-gray-500"}`}>
+                  {linkProps.icon}
+                </span>
+                <span className="text-base font-medium">{linkProps.children}</span>
+              </Link>
+            );
+          })}
+        </nav>
+        {/* Footer (Optional) */}
+        <div className="mt-auto text-sm text-gray-500">
+          <p>© 2025 Property Management</p>
         </div>
-      </div>
+      </aside>
 
       {/* Main Content */}
-      <div className="flex-grow p-8 bg-gray-100">
-        <div className="bg-white p-6 shadow-lg rounded-lg">
+      <main className="flex-grow p-8">
+        <div className="bg-white shadow-xl rounded-2xl p-8 transition-all duration-300 hover:shadow-2xl">
           {children}
         </div>
-      </div>
+      </main>
     </div>
   );
 };

@@ -49,12 +49,12 @@ const PropertyDetail = () => {
   return (
     <div className="pt-20 container mx-auto">
       <div className="flex justify-between mb-4">
-        <button
+        {/* <button
           onClick={() => navigate(-1)}
           className="mb-4 px-4 py-2 bg-slate-500 text-white rounded-lg"
         >
           &lt;&ensp;Back
-        </button>
+        </button> */}
 
         {user && user.is_admin ? null : (
           <button
