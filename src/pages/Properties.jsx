@@ -124,7 +124,7 @@ const Properties = () => {
   };
 
   return (
-    <div className="container mx-auto mb-16">
+    <div className="container mx-auto mb-16 pt-18 p-6">
       <div className="flex items-center justify-between w-full">
         <div className="flex">
           <Dropdown

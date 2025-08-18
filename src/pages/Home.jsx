@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
-    <div className="bg-white text-gray-900">
+    <div className="bg-white text-gray-900 pt-16">
       {/* Hero Section - Light Blue Theme */}
       <section className="w-full bg-gradient-to-r from-blue-500 to-indigo-600 text-white py-20 text-center">
         <div className="max-w-screen-xl mx-auto px-4">

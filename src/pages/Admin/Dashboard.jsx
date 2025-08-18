@@ -44,13 +44,6 @@ const Dashboard = () => {
       bgColor: "#fef9c3",
       filterType: "rent"
     },
-    // {
-    //   title: "On Hold",
-    //   value: on_hold,
-    //   color: "#dc2626",
-    //   bgColor: "#fee2e2",
-    //   filterType: "hold"
-    // },
     {
       title: "Pending Requests",
       value: pending_requests,
@@ -61,34 +54,38 @@ const Dashboard = () => {
   ];
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold text-gray-800 mb-6">Dashboard</h1>
+    <div className="p-6 min-h-screen">
+      <div >
+        <h1 className="text-2xl font-bold text-gray-800 mb-6">Admin Dashboard</h1>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {statCards.map((stat, index) => (
-          <div
-            key={index}
-            className="bg-white p-6 rounded-lg shadow-md cursor-pointer hover:shadow-lg transition-shadow"
-            onClick={() => handleCardClick(stat.filterType, stat.value)}
-          >
-            <div className="w-32 h-32 mx-auto">
-              <CircularProgressbar
-                value={(stat.value / total_properties) * 100 || 0}
-                text={`${stat.value}`}
-                styles={buildStyles({
-                  textSize: "16px",
-                  pathColor: stat.color,
-                  textColor: stat.color,
-                  trailColor: stat.bgColor,
-                })}
-              />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {statCards.map((stat, index) => (
+            <div
+              key={index}
+              className="bg-white p-6 rounded-lg shadow-md cursor-pointer hover:shadow-lg transition-shadow"
+              onClick={() => handleCardClick(stat.filterType, stat.value)}
+            >
+              <div className="w-32 h-32 mx-auto">
+                <CircularProgressbar
+                  value={(stat.value / total_properties) * 100 || 0}
+                  text={`${stat.value}`}
+                  styles={buildStyles({
+                    textSize: "16px",
+                    pathColor: stat.color,
+                    textColor: stat.color,
+                    trailColor: stat.bgColor,
+                  })}
+                />
+              </div>
+              <p className="text-lg mt-4 text-center font-medium">
+                {stat.title}
+              </p>
             </div>
-            <p className="text-lg mt-4 text-center font-medium">{stat.title}</p>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );
 };
 
-export default Dashboard; 
+export default Dashboard;

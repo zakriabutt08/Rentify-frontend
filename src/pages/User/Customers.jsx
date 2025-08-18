@@ -89,7 +89,7 @@ function Customers() {
   }, [filterText]);
 
   return (
-    <div>
+    <div className="min-h-screen p-6">
       <h1 className="text-2xl font-bold text-gray-800 mb-4 border-b pb-1">Customers</h1>
       <div className="p-4">
         {isPending ? (

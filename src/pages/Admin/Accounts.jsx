@@ -39,7 +39,9 @@ const AccountCard = ({ account, index, onEdit, onViewLedgers }) => {
           </button>
         </div>
       </div>
-      <p className="text-sm opacity-80">Created: {new Date(account.created_at).toLocaleDateString()}</p>
+      <p className="text-sm opacity-80">
+        Created: {new Date(account.created_at).toLocaleDateString()}
+      </p>
     </div>
   );
 };
@@ -55,7 +57,9 @@ const AccountForm = ({ account, onSubmit, onClose }) => {
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div>
-        <label className="block text-sm font-medium text-gray-700">Account Name</label>
+        <label className="block text-sm font-medium text-gray-700">
+          Account Name
+        </label>
         <input
           type="text"
           value={name}
@@ -144,27 +148,29 @@ const Accounts = () => {
   if (isLoading) return <Loader />;
 
   return (
-    <div>
-      <PageHeader title="Accounts">
-        <button
-          onClick={() => setIsModalOpen(true)}
-          className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
-        >
-          <FaPlus className="mr-2" />
-          Create Account
-        </button>
-      </PageHeader>
+    <div className="p-6 min-h-screen">
+      <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-md p-6">
+        <PageHeader title="Accounts">
+          <button
+            onClick={() => setIsModalOpen(true)}
+            className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+          >
+            <FaPlus className="mr-2" />
+            Create Account
+          </button>
+        </PageHeader>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {accounts?.map((account, index) => (
-          <AccountCard
-            key={account.id}
-            account={account}
-            index={index}
-            onEdit={handleEdit}
-            onViewLedgers={handleViewLedgers}
-          />
-        ))}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {accounts?.map((account, index) => (
+            <AccountCard
+              key={account.id}
+              account={account}
+              index={index}
+              onEdit={handleEdit}
+              onViewLedgers={handleViewLedgers}
+            />
+          ))}
+        </div>
       </div>
 
       <Modal
@@ -182,4 +188,4 @@ const Accounts = () => {
   );
 };
 
-export default Accounts; 
+export default Accounts;

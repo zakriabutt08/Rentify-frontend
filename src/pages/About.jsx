@@ -8,9 +8,9 @@ const About = () => {
   };
 
   return (
-    <div className="container mx-auto py-12 px-4 md:px-6 bg-gradient-to-br from-gray-50 to-gray-100">
+    <div className="container mx-auto py-12 px-4 md:px-6 bg-gradient-to-br from-gray-50 to-gray-100 pt-18">
       {/* Header Section */}
-      <header className="text-center mb-16">
+      <header className="text-center mb-16 mt-5">
         <h1 className="text-4xl md:text-5xl font-bold text-indigo-700 tracking-tight">
           About Us
         </h1>
